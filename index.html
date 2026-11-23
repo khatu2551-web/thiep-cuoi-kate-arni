@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Kate &amp; Arni · 17.07.2027</title>
+  <meta property="og:title" content="Kate &amp; Arni · 17.07.2027">
+  <meta property="og:description" content="Hai nền văn hóa – Một hành trình yêu thương · Bãi biển Nha Trang">
+  <meta property="og:image" content="assets/img/og.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Ephesis&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="locked">
+
+  <!-- 1. MÀN HÌNH VÉ MÁY BAY MỞ ĐẦU -->
+  <section class="gate" id="gate">
+    <article class="ticket">
+      <p class="tk-lbl">ACROSS MOUNTAINS AND OCEANS</p>
+      
+      <!-- Hiệu ứng quả địa cầu & đường bay SVG động -->
+      <div class="globe-box">
+        <svg viewBox="0 0 200 200" class="globe-svg">
+          <circle cx="100" cy="100" r="78" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+          <ellipse cx="100" cy="100" rx="38" ry="78" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1" class="spin-line"/>
+          <ellipse cx="100" cy="100" rx="78" ry="32" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+          <path id="flight-arc" d="M 32 145 Q 100 35 168 65" fill="none" stroke="#e8cfa0" stroke-width="2" stroke-dasharray="5 5" class="dash-anim"/>
+          <g class="plane-mover">
+            <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" fill="#e8cfa0" transform="translate(-12, -12) rotate(55 12 12)"/>
+          </g>
+        </svg>
+      </div>
+
+      <p class="tk-lbl">TOGETHER FOREVER</p>
+      <h1 class="tk-names">KATE &amp; ARNI</h1>
+      <p class="tk-lbl" style="letter-spacing: 1px; font-size: 10px;">LÊ THỊ NGỌC HOA &amp; ARNOLD JURI</p>
+
+      <div class="tk-table">
+        <div class="cell">
+          <p class="k">Ngày khởi hành / Datum</p>
+          <p class="v">17.07.2027</p>
+        </div>
+        <div class="cell">
+          <p class="k">Giờ / Uhrzeit</p>
+          <p class="v">16:00</p>
+        </div>
+      </div>
+
+      <div class="tk-bottom">
+        <div class="cell">
+          <p class="k">Điểm đến / Reiseziel</p>
+          <p class="v sm">Bãi biển Nha Trang, Vietnam</p>
+        </div>
+        <div class="stamp">WELCOME<br>ABOARD</div>
+      </div>
+
+      <div class="dashes"></div>
+      <button class="tk-go" id="go-btn" type="button">Mở thiệp · Öffnen</button>
+      <p class="tk-hint">Chạm hoặc vuốt lên · Tippen oder wischen</p>
+    </article>
+  </section>
+
+  <!-- 2. NỘI DUNG THIỆP CHÍNH -->
+  <main class="page">
+    <!-- Lời mời cá nhân hóa (Song ngữ Việt - Đức) -->
+    <section class="sec rv">
+      <p class="label">HERZLICHE EINLADUNG</p>
+      <h2>Trân trọng kính mời</h2>
+      <figure class="frame-photo"><img src="assets/img/g1.jpg" alt="Kate &amp; Arni"></figure>
+      
+      <div class="guest-box">
+        <p style="font-size: 13px; color: #aab6d3;">Kính mời / Einladung für</p>
+        <strong id="guest-name">Quý vị / Liebe Gäste</strong>
+      </div>
+
+      <div class="letter">
+        <p style="color: #e8cfa0; font-weight: 600;">
+          Hai nền văn hóa – Một hành trình yêu thương<br>
+          <i style="font-weight: 400; font-size: 13.5px;">Zwei Kulturen – Eine gemeinsame Zukunft</i>
+        </p>
+        <p>Chúng tôi rất hân hạnh được đón tiếp Quý vị tại tiệc cưới của chúng tôi.<br>
+        <i style="color: #aab6d3; font-size: 13.5px;">Wir freuen uns sehr, Sie zu unserer Hochzeit einzuladen.</i></p>
+        <p style="font-size: 17px; font-weight: 600; color: #e8cfa0; margin-top: 16px;">
+          LÊ THỊ NGỌC HOA (KATE)<br>♥<br>ARNOLD JURI (ARNI)
+        </p>
+      </div>
+    </section>
+
+    <!-- Lịch & Đếm ngược -->
+    <section class="sec rv">
+      <p class="label">OUR SPECIAL DAY</p>
+      <div class="cal-card">
+        <p class="script">Tháng 7 · Juli 2027</p>
+        <div class="cal" id="calendar-grid"></div>
+      </div>
+      <div class="count" id="countdown">
+        <div><small>NGÀY / TAGE</small><b id="d">00</b></div><i>:</i>
+        <div><small>GIỜ / STD</small><b id="h">00</b></div><i>:</i>
+        <div><small>PHÚT / MIN</small><b id="m">00</b></div><i>:</i>
+        <div><small>GIÂY / SEK</small><b id="s">00</b></div>
+      </div>
+    </section>
+
+    <!-- Hai gia đình (Bạn tự điền tên bố mẹ hai bên vào phần trong ngoặc vuông) -->
+    <section class="sec paper rv">
+      <div class="fam-grid">
+        <div class="fam">
+          <h3>NHÀ GÁI · BRAUT</h3>
+          <p>Ông: [ĐIỀN TÊN BỐ CÔ DÂU]</p>
+          <p>Bà: [ĐIỀN TÊN MẸ CÔ DÂU]</p>
+          <p class="child">Cô dâu / Braut<br><b>LÊ THỊ NGỌC HOA</b><br>(Kate)</p>
+        </div>
+        <div class="fam">
+          <h3>NHÀ TRAI · BRÄUTIGAM</h3>
+          <p>Ông: [ĐIỀN TÊN BỐ CHÚ RỂ]</p>
+          <p>Bà: [ĐIỀN TÊN MẸ CHÚ RỂ]</p>
+          <p class="child">Chú rể / Bräutigam<br><b>ARNOLD JURI</b><br>(Arni)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lịch trình & Trang phục (Đúng chuẩn theo thiệp) -->
+    <section class="sec rv">
+      <p class="label">FLIGHT SCHEDULE</p>
+      <h2>Lịch trình &amp; Trang phục</h2>
+      <ul class="tl">
+        <li>
+          <span>Đón khách &amp; uống cocktail<br><small style="color:#aab6d3;">Empfang der Gäste &amp; Cocktail</small></span>
+          <b>16:00</b>
+        </li>
+        <li>
+          <span>Bắt đầu nghi lễ chính của tiệc cưới<br><small style="color:#aab6d3;">Beginn der Hochzeitszeremonie</small></span>
+          <b>16:30 – 17:00</b>
+        </li>
+        <li>
+          <span>Chụp ảnh &amp; ghi lại khoảnh khắc lãng mạn<br><small style="color:#aab6d3;">Fotos &amp; unvergessliche Momente</small></span>
+          <b>17:00 – 17:30</b>
+        </li>
+        <li>
+          <span>Bắt đầu tiệc chiêu đãi<br><small style="color:#aab6d3;">Beginn des Hochzeitsdinners</small></span>
+          <b>18:00</b>
+        </li>
+      </ul>
+
+      <!-- Mục Dresscode từ thiệp -->
+      <div class="guest-box" style="margin-top: 24px; text-align: left;">
+        <p style="color: #e8cfa0; font-weight: 700; font-size: 13px; letter-spacing: 1px;">TRANG PHỤC / DRESSCODE</p>
+        <p style="font-size: 14px; margin-top: 6px;">Trang phục thoải mái, phù hợp tiệc trên biển</p>
+        <p style="font-size: 13px; color: #aab6d3; font-style: italic; margin-top: 2px;">Bequeme, sommerliche Kleidung – passend zur Strandhochzeit</p>
+      </div>
+    </section>
+
+    <!-- Địa điểm & Bản đồ -->
+    <section class="sec paper rv">
+      <p class="label">LOCATION</p>
+      <h2>Địa điểm tổ chức</h2>
+      <h4>BÃI BIỂN NHA TRANG</h4>
+      <p class="addr">Strand von Nha Trang, Vietnam<br><small>[Có thể ghi thêm tên Resort/Nhà hàng cụ thể ở đây]</small></p>
+      <div class="mapbox">
+        <iframe title="Bản đồ Bãi biển Nha Trang" loading="lazy" src="https://www.google.com/maps?q=Nha+Trang+Beach&output=embed"></iframe>
+      </div>
+      <a class="pill" target="_blank" href="https://www.google.com/maps/dir/?api=1&destination=Nha+Trang+Beach">Chỉ đường · Route planen</a>
+    </section>
+
+    <!-- Album ảnh cưới -->
+    <section class="sec rv">
+      <p class="label">GALLERY</p>
+      <h2>Album ảnh cưới</h2>
+      <div class="photos" id="gallery">
+        <button type="button" class="big"><img src="assets/img/g1.jpg" alt=""></button>
+        <button type="button"><img src="assets/img/g2.jpg" alt=""></button>
+        <button type="button"><img src="assets/img/g3.jpg" alt=""></button>
+        <button type="button"><img src="assets/img/g4.jpg" alt=""></button>
+        <button type="button"><img src="assets/img/g5.jpg" alt=""></button>
+      </div>
+    </section>
+
+    <!-- Xác nhận tham dự (RSVP) -->
+    <section class="sec rv">
+      <p class="label">RSVP</p>
+      <h2>Xác nhận tham dự · Zusage</h2>
+      <form class="form" id="rsvp-form">
+        <input name="name" required placeholder="Tên của bạn / Ihr Name">
+        <div class="radio-group">
+          <label><input type="radio" name="attend" value="Tham dự" required> Tham dự / Ich komme</label>
+          <label><input type="radio" name="attend" value="Vắng mặt"> Vắng mặt / Leider nicht</label>
+        </div>
+        <input name="guests" type="number" min="1" max="10" value="1" placeholder="Số người / Anzahl Personen">
+        <textarea name="wish" rows="3" placeholder="Gửi lời chúc tới Kate &amp; Arni / Glückwünsche..."></textarea>
+        <button type="submit" class="send">Gửi xác nhận / Absenden</button>
+        <p class="msg" id="form-msg"></p>
+      </form>
+    </section>
+
+    <!-- Mừng cưới (Bạn tự điền số tài khoản vào) --> 
+    <section class="sec paper rv">
+      <p class="label">GIFT BOX</p>
+      <h2>Hộp quà mừng cưới</h2>
+      <details class="acc">
+        <summary>Tài khoản Cô Dâu (Kate) ▾</summary>
+        <div class="row">
+          <div><b>LE THI NGOC HOA</b><br>[Vietcombank]: [0061001072501]</div>
+          <button type="button" class="copy-btn" data-copy="[SỐ TÀI KHOẢN]">Sao chép</button>
+        </div>
+      </details>
+      <details class="acc">
+        <summary>Tài khoản Chú Rể (Arni) ▾</summary>
+        <div class="row">
+          <div><b>ARNOLD JURI</b><br>[TÊN NGÂN HÀNG / IBAN]: [SỐ TÀI KHOẢN]</div>
+          <button type="button" class="copy-btn" data-copy="[SỐ TÀI KHOẢN]">Sao chép</button>
+        </div>
+      </details>
+    </section>
+
+    <footer class="ending">
+      <p class="script">Save the Date · 17.07.2027</p>
+      <p>Hẹn gặp Quý vị tại Bãi biển Nha Trang! ♡<br><small style="color:#aab6d3;">Wir freuen uns auf Sie!</small></p>
+    </footer>
+  </main>
+
+  <!-- Lightbox xem ảnh lớn -->
+  <div class="lightbox" id="lightbox" hidden>
+    <button type="button" id="lb-close">✕</button>
+    <img id="lb-img" alt="">
+  </div>
+
+  <!-- Nút nhạc nền xoay tròn -->
+  <button class="music-btn" id="music-btn" type="button" aria-label="Nhạc nền">♫</button>
+  <audio id="bg-music" src="assets/music.mp3" loop></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
