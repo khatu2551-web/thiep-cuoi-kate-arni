@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tạo link thiệp mời · Kate &amp; Arni</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #eef8fd;
+      color: #1d435a;
+      display: flex;
+      justify-content: center;
+      padding: 24px 16px;
+    }
+    .box {
+      width: 100%;
+      max-width: 420px;
+      background: #fff;
+      padding: 24px;
+      border-radius: 18px;
+      border: 1.5px solid #9fd3ec;
+      box-shadow: 0 10px 25px rgba(29, 67, 90, 0.1);
+    }
+    h2 { margin-top: 0; font-size: 20px; text-align: center; }
+    label { display: block; font-size: 13px; font-weight: 600; margin: 14px 0 6px; }
+    input, textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 12px;
+      border: 1px solid #9fd3ec;
+      border-radius: 10px;
+      font-size: 15px;
+    }
+    button {
+      width: 100%;
+      margin-top: 14px;
+      padding: 13px;
+      border: none;
+      border-radius: 10px;
+      background: #2b7a9e;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn-msg { background: #1d435a; }
+    .note { font-size: 12px; color: #4c728a; text-align: center; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>💌 Tạo Link Thiệp Cá Nhân Hóa</h2>
+    
+    <label>1. Đường link gốc thiệp cưới của bạn:</label>
+    <input id="base-url" value="https://thiep-cuoi-kate-arni.vercel.app">
+
+    <label>2. Nhập tên khách mời (hiển thị trên thiệp):</label>
+    <input id="guest" placeholder="VD: Vợ chồng anh Nam / Liebe Anna">
+
+    <label>3. Link riêng của khách:</label>
+    <input id="result-link" readonly>
+    <button type="button" onclick="copyText('result-link', 'Đã sao chép link!')">Sao chép chỉ đường link</button>
+
+    <label>4. Tin nhắn mời kèm link (gửi Zalo / WhatsApp):</label>
+    <textarea id="result-msg" rows="5" readonly></textarea>
+    <button type="button" class="btn-msg" onclick="copyText('result-msg', 'Đã sao chép lời mời + link!')">Sao chép cả lời mời &amp; link</button>
+    
+    <p class="note" id="status"></p>
+  </div>
+
+  <script>
+    const baseInput = document.getElementById('base-url');
+    const guestInput = document.getElementById('guest');
+    const linkOut = document.getElementById('result-link');
+    const msgOut = document.getElementById('result-msg');
+
+    // Tự động lấy tên miền hiện tại nếu mở trên Vercel
+    if (window.location.origin.startsWith('http')) {
+      baseInput.value = window.location.origin;
+    }
+
+    function generate() {
+      const base = baseInput.value.replace(/\/$/, '');
+      const name = guestInput.value.trim();
+      const finalLink = name ? `${base}/?to=${encodeURIComponent(name)}` : base;
+      
+      linkOut.value = finalLink;
+      msgOut.value = `Trân trọng kính mời ${name || 'Quý vị'} đến tham dự tiệc cưới của Kate & Arni vào lúc 16:30 ngày 17.07.2027 tại Nhà Hàng Bốn Mùa (38 Trần Phú, Nha Trang).\n\nXem thiệp mời điện tử tại đây:\n${finalLink}`;
+    }
+
+    function copyText(id, text) {
+      const el = document.getElementById(id);
+      el.select();
+      navigator.clipboard.writeText(el.value);
+      document.getElementById('status').textContent = '✓ ' + text;
+    }
+
+    baseInput.addEventListener('input', generate);
+    guestInput.addEventListener('input', generate);
+    generate();
+  </script>
+</body>
+</html>
