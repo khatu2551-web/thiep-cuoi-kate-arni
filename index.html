@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Kate &amp; Arni · 17.07.2027</title>
+  <meta property="og:title" content="Kate &amp; Arni · 17.07.2027">
+  <meta property="og:description" content="Hai nền văn hóa – Một hành trình yêu thương · Nhà Hàng Bốn Mùa (Bon Mua Park), Nha Trang">
+  <meta property="og:image" content="assets/img/og.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Ephesis&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Đóng khung & canh lề thẳng hàng tuyệt đối cho Lịch trình */
+    .sched-box {
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid #9fd3ec;
+      border-radius: 16px;
+      padding: 6px 18px;
+      box-shadow: 0 6px 18px rgba(29, 67, 90, 0.06);
+      text-align: left;
+    }
+    .sched-box .tl li {
+      display: grid;
+      grid-template-columns: 112px 1fr;
+      align-items: start;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px dashed rgba(43, 122, 158, 0.28);
+    }
+    .sched-box .tl li:last-child {
+      border-bottom: none;
+    }
+    .sched-box .tl b {
+      color: var(--ocean-accent);
+      font-size: 14.5px;
+      font-weight: 700;
+      text-align: left;
+      padding-top: 2px;
+    }
+    .sched-box .tl span {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ocean-dark);
+      line-height: 1.45;
+    }
+    .sched-box .tl small {
+      display: block;
+      font-weight: 400;
+      font-style: italic;
+      font-size: 12.5px;
+      color: var(--ocean-soft);
+      margin-top: 2px;
+    }
+    /* Ảnh minh họa Dresscode */
+    .dresscode-img {
+      width: 100%;
+      max-height: 240px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-top: 12px;
+      border: 1px solid #9fd3ec;
+      display: block;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body class="locked">
+
+  <!-- 1. MÀN HÌNH VÉ MÁY BAY MỞ ĐẦU -->
+  <section class="gate" id="gate">
+    <article class="ticket">
+      <p class="tk-lbl">ACROSS MOUNTAINS AND OCEANS</p>
+      
+      <!-- Hiệu ứng quả địa cầu & đường bay SVG động -->
+      <div class="globe-box">
+        <svg viewBox="0 0 200 200" class="globe-svg">
+          <circle cx="100" cy="100" r="78" fill="none" stroke="rgba(43,122,158,0.35)" stroke-width="1"/>
+          <ellipse cx="100" cy="100" rx="38" ry="78" fill="none" stroke="rgba(43,122,158,0.35)" stroke-width="1"/>
+          <ellipse cx="100" cy="100" rx="78" ry="32" fill="none" stroke="rgba(43,122,158,0.35)" stroke-width="1"/>
+          <path id="flight-arc" d="M 32 145 Q 100 35 168 65" fill="none" stroke="#2b7a9e" stroke-width="2" stroke-dasharray="5 5" class="dash-anim"/>
+          <g class="plane-mover">
+            <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" fill="#1d435a" transform="translate(-12, -12) rotate(55 12 12)"/>
+          </g>
+        </svg>
+      </div>
+
+      <p class="tk-lbl">TOGETHER FOREVER</p>
+      <h1 class="tk-names">KATE &amp; ARNI</h1>
+      <p class="tk-lbl" style="letter-spacing: 1px; font-size: 10px;">LÊ THỊ NGỌC HOA &amp; ARNOLD JURI</p>
+
+      <div class="tk-table">
+        <div class="cell">
+          <p class="k">Ngày khởi hành / Datum</p>
+          <p class="v">17.07.2027</p>
+        </div>
+        <div class="cell">
+          <p class="k">Giờ / Uhrzeit</p>
+          <p class="v">16:30</p>
+        </div>
+      </div>
+
+      <div class="tk-bottom">
+        <div class="cell">
+          <p class="k">Điểm đến / Reiseziel</p>
+          <p class="v sm">Nhà Hàng Bốn Mùa (Bon Mua Park), Nha Trang</p>
+        </div>
+        <div class="stamp">WELCOME<br>ABOARD</div>
+      </div>
+
+      <div class="dashes"></div>
+      <button class="tk-go" id="go-btn" type="button">Mở thiệp · Öffnen</button>
+      <p class="tk-hint">Chạm hoặc vuốt lên · Tippen oder wischen</p>
+    </article>
+  </section>
+
+  <!-- 2. NỘI DUNG THIỆP CHÍNH -->
+  <main class="page">
+    <!-- Lời mời cá nhân hóa -->
+    <section class="sec rv">
+      <p class="label">HERZLICHE EINLADUNG</p>
+      <h2>Trân trọng kính mời</h2>
+      <figure class="frame-photo"><img src="assets/img/og.jpg" alt="Kate &amp; Arni"></figure>
+      
+      <div class="guest-box">
+        <p style="font-size: 13px;">Kính mời / Einladung für</p>
+        <strong id="guest-name">Quý vị / Liebe Gäste</strong>
+      </div>
+
+      <div class="letter">
+        <p style="font-weight: 600;">
+          Hai nền văn hóa – Một hành trình yêu thương<br>
+          <i style="font-weight: 400; font-size: 13.5px;">Zwei Kulturen – Eine gemeinsame Zukunft</i>
+        </p>
+        <p>Chúng tôi rất hân hạnh được đón tiếp Quý vị tại tiệc cưới của chúng tôi.<br>
+        <i style="font-size: 13.5px;">Wir freuen uns sehr, Sie zu unserer Hochzeit einzuladen.</i></p>
+        <p style="font-size: 17px; font-weight: 600; margin-top: 16px;">
+          LÊ THỊ NGỌC HOA (KATE)<br>♥<br>ARNOLD JURI (ARNI)
+        </p>
+      </div>
+    </section>
+
+    <!-- Lịch & Đếm ngược -->
+    <section class="sec rv">
+      <p class="label">OUR SPECIAL DAY</p>
+      <div class="cal-card">
+        <p class="script">Tháng 7 · Juli 2027</p>
+        <div class="cal" id="calendar-grid"></div>
+      </div>
+      <div class="count" id="countdown">
+        <div><small>NGÀY / TAGE</small><b id="d">00</b></div><i>:</i>
+        <div><small>GIỜ / STD</small><b id="h">00</b></div><i>:</i>
+        <div><small>PHÚT / MIN</small><b id="m">00</b></div><i>:</i>
+        <div><small>GIÂY / SEK</small><b id="s">00</b></div>
+      </div>
+    </section>
+
+    <!-- Hai gia đình -->
+    <section class="sec paper rv">
+      <div class="fam-grid" style="align-items: center;">
+        <div class="fam">
+          <h3>NHÀ GÁI · BRAUT</h3>
+          <p>Ông: Lê Ngọc Hộ</p>
+          <p>Bà: Nguyễn Thị Tuyết</p>
+          <p class="child">Cô dâu / Braut<br><b>LÊ THỊ NGỌC HOA</b><br>(Kate)</p>
+        </div>
+        <div class="fam">
+          <h3>NHÀ TRAI · BRÄUTIGAM</h3>
+          <p class="child" style="margin-top: 0;">Chú rể / Bräutigam<br><b>ARNOLD JURI</b><br>(Arni)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Câu chuyện tình yêu (Our Love Story) -->
+    <section class="sec rv">
+      <p class="label">OUR LOVE STORY</p>
+      <h2>Hành trình yêu thương</h2>
+      <div class="story-list">
+        
+        <!-- Cột mốc 1 -->
+        <div class="story-item">
+          <span class="story-date">28.09.2024</span>
+          <h4>Lần đầu gặp gỡ · Das erste Treffen</h4>
+          <p>Arni đang đi dạo trên bãi biển và tình cờ gặp Kate, khoảnh khắc nhỏ đó chính là nơi bắt đầu cho câu chuyện tình yêu của chúng mình.</p>
+          <p class="de">Als Arni am Strand spazieren ging und zufällig Kate begegnete – genau in diesem kleinen Moment begann unsere gemeinsame Liebesgeschichte.</p>
+          <div class="story-photos single">
+            <img src="assets/img/story1.jpg" alt="Lần đầu gặp gỡ">
+          </div>
+        </div>
+
+        <!-- Cột mốc 2 -->
+        <div class="story-item">
+          <span class="story-date">2024 – 2026</span>
+          <h4>Cùng nhau đi qua muôn nơi · Über Berge und Meere</h4>
+          <p>Những chuyến đi chung, những lần vượt qua khoảng cách địa lý giữa hai nền văn hóa để luôn ở bên nhau.</p>
+          <p class="de">Gemeinsame Reisen und wunderbare Erinnerungen über Berge und Meere hinweg.</p>
+          <div class="story-photos">
+            <img src="assets/img/story2.jpg" alt="Hành trình 1">
+            <img src="assets/img/story3.jpg" alt="Hành trình 2">
+          </div>
+        </div>
+
+        <!-- Cột mốc 3 -->
+        <div class="story-item">
+          <span class="story-date">17.07.2027</span>
+          <h4>Về chung một nhà · Für immer zusammen</h4>
+          <p>Từ hai nền văn hóa khác biệt, chúng mình chọn nắm tay nhau viết tiếp chương mới tại bờ biển Nha Trang.</p>
+          <p class="de">Aus zwei Kulturen wird eine gemeinsame Zukunft – am wunderschönen Strand von Nha Trang.</p>
+          <div class="story-photos">
+            <img src="assets/img/story4.jpg" alt="Kỷ niệm 3">
+            <img src="assets/img/story5.jpg" alt="Kỷ niệm 4">
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Lịch trình & Trang phục (Đã lùi 30 phút & thêm ảnh Dresscode) -->
+    <section class="sec rv">
+      <p class="label">FLIGHT SCHEDULE</p>
+      <h2>Lịch trình &amp; Trang phục</h2>
+      
+      <div class="sched-box">
+        <ul class="tl">
+          <li>
+            <b>16:30</b>
+            <span>Đón khách &amp; uống cocktail<small>Empfang der Gäste &amp; Cocktail</small></span>
+          </li>
+          <li>
+            <b>17:00 – 17:30</b>
+            <span>Bắt đầu nghi lễ chính của tiệc cưới<small>Beginn der Hochzeitszeremonie</small></span>
+          </li>
+          <li>
+            <b>17:30 – 18:00</b>
+            <span>Chụp ảnh &amp; ghi lại khoảnh khắc lãng mạn<small>Fotos &amp; unvergessliche Momente</small></span>
+          </li>
+          <li>
+            <b>18:30</b>
+            <span>Bắt đầu tiệc chiêu đãi<small>Beginn des Hochzeitsdinners</small></span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Mục Dresscode kèm ảnh minh họa -->
+      <div class="guest-box" style="margin-top: 16px; text-align: left; padding: 16px 18px; border-radius: 16px; box-shadow: 0 6px 18px rgba(29, 67, 90, 0.06);">
+        <p style="font-weight: 700; font-size: 13px; letter-spacing: 1px; color: var(--ocean-accent);">TRANG PHỤC / DRESSCODE</p>
+        <p style="font-size: 14px; font-weight: 600; color: var(--ocean-dark); margin-top: 6px;">Trang phục thoải mái, phù hợp tiệc trên biển</p>
+        <p style="font-size: 12.5px; font-style: italic; color: var(--ocean-soft); margin-top: 2px;">Bequeme, sommerliche Kleidung – passend zur Strandhochzeit</p>
+        <img src="assets/img/dresscode.jpg" alt="Gợi ý trang phục tiệc cưới bãi biển" class="dresscode-img">
+      </div>
+    </section>
+
+    <!-- Địa điểm & Bản đồ Nhà Hàng Bốn Mùa (Bon Mua Park) -->
+    <section class="sec paper rv">
+      <p class="label">LOCATION</p>
+      <h2>Địa điểm tổ chức</h2>
+      <h4>NHÀ HÀNG BỐN MÙA (BON MUA PARK)</h4>
+      <p class="addr">38 Trần Phú, Nha Trang, Khánh Hòa<br><small>Bon Mua Park · Strand von Nha Trang, Vietnam</small></p>
+      <div class="mapbox">
+        <iframe title="Bản đồ Nhà Hàng Bốn Mùa - 38 Trần Phú, Nha Trang" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=Nh%C3%A0%20H%C3%A0ng%20B%E1%BB%91n%20M%C3%B9a%2038%20Tr%E1%BA%A7n%20Ph%C3%BA%20Nha%20Trang&t=&z=16&ie=UTF8&iwloc=&output=embed"></iframe>
+      </div>
+      <a class="pill" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=Nh%C3%A0+H%C3%A0ng+B%E1%BB%91n+M%C3%B9a+38+Tr%E1%BA%A7n+Ph%C3%BA+Nha+Trang">Chỉ đường · Route planen</a>
+    </section>
+
+    <!-- Album ảnh cưới -->
+    <section class="sec rv">
+      <p class="label">GALLERY</p>
+      <h2 style="font-size: 26px; line-height: 1.35;">Tình yêu của chúng mình được gói gọn ở đây</h2>
+      <div class="photos" id="gallery">
+        <button type="button" class="big"><img src="assets/img/g1.jpg" alt=""></button>
+        <button type="button"><img src="assets/img/g2.jpg" alt=""></button>
+        <button type="button"><img src="assets/img/g3.jpg" alt=""></button>
+        <button type="button"><img src="assets/img/g4.jpg" alt=""></button>
+        <button type="button"><img src="assets/img/g5.jpg" alt=""></button>
+      </div>
+    </section>
+
+    <!-- Xác nhận tham dự (RSVP) -->
+    <section class="sec paper rv">
+      <p class="label">RSVP</p>
+      <h2>Xác nhận tham dự · Zusage</h2>
+      <form class="form" id="rsvp-form">
+        <input name="name" required placeholder="Tên của bạn / Ihr Name">
+        <div class="radio-group">
+          <label><input type="radio" name="attend" value="Tham dự" required> Tham dự / Ich komme</label>
+          <label><input type="radio" name="attend" value="Vắng mặt"> Vắng mặt / Leider nicht</label>
+        </div>
+        <input name="guests" type="number" min="1" max="10" value="1" placeholder="Số người / Anzahl Personen">
+        <textarea name="wish" rows="3" placeholder="Gửi lời chúc tới Kate &amp; Arni / Glückwünsche..."></textarea>
+        <button type="submit" class="send">Gửi xác nhận / Absenden</button>
+        <p class="msg" id="form-msg"></p>
+      </form>
+    </section>
+
+    <footer class="ending">
+      <p class="script">Save the Date · 17.07.2027</p>
+      <p>Hẹn gặp Quý vị tại Nhà Hàng Bốn Mùa, Nha Trang! ♡<br><small>Wir freuen uns auf Sie!</small></p>
+    </footer>
+  </main>
+
+  <!-- Lightbox xem ảnh lớn -->
+  <div class="lightbox" id="lightbox" hidden>
+    <button type="button" id="lb-close">✕</button>
+    <img id="lb-img" alt="">
+  </div>
+
+  <!-- Nút nhạc nền xoay tròn -->
+  <button class="music-btn" id="music-btn" type="button" aria-label="Nhạc nền">♫</button>
+  <audio id="bg-music" src="assets/music.mp3" loop></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
