@@ -89,10 +89,51 @@ document.querySelectorAll('#gallery img, .story-photos img, .dresscode-img').for
 });
 document.getElementById('lb-close').addEventListener('click', () => lightbox.hidden = true);
 
-// 7. Gửi Form RSVP & Lời chúc
-document.getElementById('rsvp-form').addEventListener('submit', e => {
+// 7. Gửi Form RSVP & Lời chúc tự động về Telegram
+const TELEGRAM_TOKEN = '9269268365:AAHAiLFgfJpSVzMKDDYzmool6VTokbeRsIg';
+const CHAT_ID = '9011614930';
+
+document.getElementById('rsvp-form').addEventListener('submit', async e => {
   e.preventDefault();
+  const form = e.target;
+  const fd = new FormData(form);
+  const submitBtn = form.querySelector('button[type="submit"]');
   const msgEl = document.getElementById('form-msg');
-  msgEl.textContent = 'Cảm ơn Quý vị đã gửi xác nhận và lời chúc tới Kate & Arni! ♥';
-  e.target.reset();
+
+  const senderName = fd.get('name');
+  const attendStatus = fd.get('attend');
+  const guestCount = attendStatus === 'Vắng mặt' ? 0 : (fd.get('guests') || 1);
+  const wishText = fd.get('wish') || '(Không có lời chúc)';
+
+  const message = 
+`💌 XÁC NHẬN THIỆP CƯỚI KATE & ARNI
+👤 Khách mời: ${senderName}
+📌 Trạng thái: ${attendStatus}
+👥 Số người tham dự: ${guestCount} người
+💬 Lời chúc: ${wishText}`;
+
+  submitBtn.disabled = true;
+  msgEl.textContent = 'Đang gửi xác nhận... / Wird gesendet...';
+
+  try {
+    const res = await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: CHAT_ID,
+        text: message
+      })
+    });
+
+    if (res.ok) {
+      msgEl.textContent = '✓ Cảm ơn Quý vị đã gửi xác nhận và lời chúc tới Kate & Arni! ♥';
+      form.reset();
+    } else {
+      throw new Error('Telegram API Error');
+    }
+  } catch (err) {
+    msgEl.textContent = 'Có lỗi kết nối, vui lòng thử lại giúp chúng mình nhé!';
+  } finally {
+    submitBtn.disabled = false;
+  }
 });
