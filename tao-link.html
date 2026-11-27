@@ -3,114 +3,191 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tạo link thiệp mời · Kate &amp; Arni</title>
+  <title>Tạo link thiệp từ Excel · Kate &amp; Arni</title>
+  <!-- Thư viện đọc file Excel trực tiếp trên trình duyệt -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <style>
     body {
       font-family: sans-serif;
-      background: #eef8fd;
-      color: #1d435a;
+      background: #fbf6ee;
+      color: #563d2d;
       display: flex;
       justify-content: center;
-      padding: 24px 16px;
+      padding: 20px 14px;
     }
     .box {
       width: 100%;
-      max-width: 440px;
-      background: #fff;
-      padding: 24px;
+      max-width: 520px;
+      background: #fffdf9;
+      padding: 22px;
       border-radius: 18px;
-      border: 1.5px solid #9fd3ec;
-      box-shadow: 0 10px 25px rgba(29, 67, 90, 0.1);
+      border: 1.5px solid #c59b5f;
+      box-shadow: 0 10px 25px rgba(86, 61, 45, 0.1);
     }
     h2 { margin-top: 0; font-size: 20px; text-align: center; }
-    label { display: block; font-size: 13px; font-weight: 600; margin: 14px 0 6px; }
-    input, textarea {
+    label { display: block; font-size: 13px; font-weight: 700; margin: 14px 0 6px; }
+    input[type="text"], input[type="file"] {
       width: 100%;
       box-sizing: border-box;
-      padding: 12px;
-      border: 1px solid #9fd3ec;
+      padding: 11px;
+      border: 1px solid #c59b5f;
       border-radius: 10px;
-      font-size: 14.5px;
-      font-family: inherit;
-      line-height: 1.5;
+      background: #fff;
+      font-size: 14px;
     }
-    button {
-      width: 100%;
-      margin-top: 10px;
-      padding: 13px;
+    .hint { font-size: 12px; color: #7d6250; margin-top: 4px; }
+    .list { margin-top: 18px; display: flex; flex-direction: column; gap: 10px; }
+    .item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      background: #f4eadb;
+      border-radius: 12px;
+      border: 1px solid rgba(197, 155, 95, 0.4);
+    }
+    .item-info { overflow: hidden; }
+    .item-name { font-weight: 700; font-size: 15px; }
+    .item-link { font-size: 11.5px; color: #7d6250; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .btn-copy {
+      flex-shrink: 0;
+      padding: 9px 14px;
       border: none;
-      border-radius: 10px;
-      background: #2b7a9e;
+      border-radius: 8px;
+      background: #c59b5f;
       color: #fff;
-      font-size: 15px;
       font-weight: 700;
+      font-size: 13px;
       cursor: pointer;
     }
-    .btn-msg { background: #1d435a; }
-    .note { font-size: 13px; color: #2b7a9e; font-weight: 600; text-align: center; margin-top: 12px; }
+    .btn-copy.copied { background: #3b7a57; }
+    .btn-all {
+      width: 100%;
+      margin-top: 12px;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: #563d2d;
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
   <div class="box">
-    <h2>💌 Tạo Link Thiệp Cá Nhân Hóa</h2>
-    
-    <label>1. Đường link gốc thiệp cưới của bạn:</label>
-    <input id="base-url" value="https://thiep-cuoi-kate-arni.vercel.app">
+    <h2>📊 Nhập Danh Sách Khách Từ Excel</h2>
 
-    <label>2. Nhập tên khách mời (VD: Anh Nam / Liebe Anna):</label>
-    <input id="guest" placeholder="Nhập tên khách mời hiển thị trên thiệp...">
+    <label>1. Link gốc thiệp cưới của bạn:</label>
+    <input type="text" id="base-url" value="https://thiep-cuoi-kate-arni.vercel.app">
 
-    <label>3. Link riêng của khách:</label>
-    <input id="result-link" readonly>
-    <button type="button" onclick="copyText('result-link', 'Đã sao chép đường link!')">Sao chép chỉ đường link</button>
+    <label>2. Chọn file Excel (.xlsx, .xls, .csv):</label>
+    <input type="file" id="excel-file" accept=".xlsx, .xls, .csv">
+    <p class="hint">* Đặt tên khách mời ở Cột A (dòng đầu tiên có thể là tiêu đề "Tên khách" hoặc tên luôn đều được).</p>
 
-    <label>4. Tin nhắn mời song ngữ Việt – Đức kèm link:</label>
-    <textarea id="result-msg" rows="11" readonly></textarea>
-    <button type="button" class="btn-msg" onclick="copyText('result-msg', 'Đã sao chép lời mời song ngữ & link!')">Sao chép cả lời mời song ngữ &amp; link</button>
-    
-    <p class="note" id="status"></p>
+    <button type="button" class="btn-all" id="export-btn" style="display:none;" onclick="downloadResultExcel()">
+      ⬇ Tải về file Excel mới kèm sẵn cột Link &amp; Lời mời
+    </button>
+
+    <div class="list" id="guest-list"></div>
   </div>
 
   <script>
     const baseInput = document.getElementById('base-url');
-    const guestInput = document.getElementById('guest');
-    const linkOut = document.getElementById('result-link');
-    const msgOut = document.getElementById('result-msg');
+    const fileInput = document.getElementById('excel-file');
+    const listEl = document.getElementById('guest-list');
+    const exportBtn = document.getElementById('export-btn');
+    let parsedGuests = [];
 
-    // Tự động lấy tên miền hiện tại nếu mở trên Vercel
     if (window.location.origin.startsWith('http')) {
       baseInput.value = window.location.origin;
     }
 
-    function generate() {
-      const base = baseInput.value.replace(/\/$/, '');
-      const name = guestInput.value.trim();
-      const finalLink = name ? `${base}/?to=${encodeURIComponent(name)}` : base;
-      
-      const guestVi = name || 'Quý vị';
-      const guestDe = name || 'Liebe Gäste';
+    function buildMessage(name, link) {
+      return `Trân trọng kính mời ${name} đến chung vui tại tiệc cưới của Kate & Arni vào lúc 16:30, Thứ Bảy ngày 17.07.2027 tại Nhà Hàng Bốn Mùa (Bon Mua Park – 38 Trần Phú, Nha Trang).
 
-      linkOut.value = finalLink;
-      msgOut.value = 
-`Trân trọng kính mời ${guestVi} đến chung vui tại tiệc cưới của Kate & Arni vào lúc 16:30, Thứ Bảy ngày 17.07.2027 tại Nhà Hàng Bốn Mùa (Bon Mua Park – 38 Trần Phú, Nha Trang).
-
-Herzliche Einladung an ${guestDe} zu unserer Hochzeit am Samstag, den 17.07.2027 um 16:30 Uhr im Bon Mua Park (38 Trần Phú, Nha Trang).
+Herzliche Einladung an ${name} zu unserer Hochzeit am Samstag, den 17.07.2027 um 16:30 Uhr im Bon Mua Park (38 Trần Phú, Nha Trang).
 
 Xem thiệp mời điện tử / Digitale Einladung:
-${finalLink}`;
+${link}`;
     }
 
-    function copyText(id, text) {
-      const el = document.getElementById(id);
-      el.select();
-      el.setSelectionRange(0, 99999);
-      navigator.clipboard.writeText(el.value);
-      document.getElementById('status').textContent = '✓ ' + text;
+    function renderList() {
+      const base = baseInput.value.replace(/\/$/, '');
+      listEl.innerHTML = '';
+      if (parsedGuests.length === 0) {
+        exportBtn.style.display = 'none';
+        return;
+      }
+      exportBtn.style.display = 'block';
+
+      parsedGuests.forEach((name, idx) => {
+        const link = `${base}/?to=${encodeURIComponent(name)}`;
+        const fullMsg = buildMessage(name, link);
+
+        const row = document.createElement('div');
+        row.className = 'item';
+        row.innerHTML = `
+          <div class="item-info">
+            <div class="item-name">${idx + 1}. ${name}</div>
+            <div class="item-link">${link}</div>
+          </div>
+          <button type="button" class="btn-copy">Copy lời mời</button>
+        `;
+
+        const btn = row.querySelector('button');
+        btn.addEventListener('click', () => {
+          navigator.clipboard.writeText(fullMsg);
+          btn.textContent = '✓ Đã copy';
+          btn.classList.add('copied');
+        });
+
+        listEl.appendChild(row);
+      });
     }
 
-    baseInput.addEventListener('input', generate);
-    guestInput.addEventListener('input', generate);
-    generate();
+    fileInput.addEventListener('change', e => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = evt => {
+        const wb = XLSX.read(evt.target.result, { type: 'binary' });
+        const sheet = wb.Sheets[wb.SheetNames[0]];
+        const rows = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+
+        // Lọc lấy các ô không rỗng ở Cột A, bỏ qua dòng tiêu đề nếu có
+        const headers = ['tên', 'tên khách', 'tên khách mời', 'name', 'guest', 'stt'];
+        parsedGuests = rows
+          .map(r => (r[0] !== undefined ? String(r[0]).trim() : ''))
+          .filter((val, index) => val !== '' && !(index === 0 && headers.includes(val.toLowerCase())));
+
+        renderList();
+      };
+      reader.readAsBinaryString(file);
+    });
+
+    baseInput.addEventListener('input', renderList);
+
+    // Xuất ngược lại file Excel có sẵn cột Link và Lời mời
+    function downloadResultExcel() {
+      const base = baseInput.value.replace(/\/$/, '');
+      const data = parsedGuests.map((name, i) => {
+        const link = `${base}/?to=${encodeURIComponent(name)}`;
+        return {
+          'STT': i + 1,
+          'Tên khách mời': name,
+          'Link thiệp riêng': link,
+          'Tin nhắn mời song ngữ': buildMessage(name, link)
+        };
+      });
+      const ws = XLSX.utils.json_to_sheet(data);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'DanhSachThiep');
+      XLSX.writeFile(wb, 'Link_Thiep_Cuoi_Kate_Arni.xlsx');
+    }
   </script>
 </body>
 </html>
